@@ -1,0 +1,35 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <center>
+  <table class='table ' style='text-align: center;width:90%'> 
+     <%= hidden_field(:post, :user_id, :value => cookies[:user]) %>
+    <tr><td><%= f.label :title %></td><td>
+    <%= f.text_field :title %></td></tr>
+  
+  
+    
+    <%= hidden_field(:post, :time, :value => Time.now) %>
+  
+  
+    <tr><td><%= f.label :content %></td><td>
+    <%= f.text_area :content %></td></tr>
+  
+  
+    <tr><td><%= f.label :tags %></td><td>
+    <%= f.text_field :tags %></td></tr>
+  </table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  </center>
+<% end %>

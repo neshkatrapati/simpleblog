@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+<center>
+<div id="blogroll" style="width: 80%">
+<div class="well" style='text-align: left'>
+    <h2><%= @post.title %></h2>
+    Posted on <%= @post.time %>
+    <% user = User.find(@post.user_id) %>
+    By <i><%= link_to user.name,user %></i><br><br><br>
+    <%= raw @post.content %>
+    Tags: <%= @post.tags %>
+  </div>
+
+<div  style="width: 80%">
+<% if @post.comments.length > 0 %>
+  <h2>Comments</h2><br>
+  <% @post.comments.each do |comment| %>
+    <div class='well'>
+    <b> <% user = User.find(comment.user_id) %>
+    <%= link_to user.name,user %></b> <%= comment.body %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if !(["",nil].include? cookies[:user]) %>
+  <h2>Add a comment:</h2>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <table class='table table-bordered'>
+     <tr><td>Commenter</td><td>
+     <% user = User.find(cookies[:user]) %>
+    <%= user.name %></td></tr>
+      <%= hidden_field(:comment, :user_id, :value => cookies[:user]) %>
+      <tr><td><%= f.label :body %></td><td style='height: 20%'>
+    <%= f.text_area :body %></td></tr>
+  </table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+  <%else%>
+      <div class='alert' style='width: 40%'>Login to post Comments !! </div>
+<% end %>
+</div> 
+</div>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+</center>

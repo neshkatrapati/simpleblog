@@ -1,0 +1,10 @@
+<center><h1>New post</h1><br>
+
+<% if cookies[:user] != nil and cookies[:user] != "" %> 
+<%= link_to 'Back', posts_path %>
+<%= render 'editor' %>
+<%= render 'form' %>
+<% else %>
+    <div class='alert' style='width: 40%'><%= link_to 'Signin First!','/users/signin' %></div>
+<% end %>
+</center>

@@ -1,0 +1,18 @@
+<center>
+<h1>Available Users</h1><br>
+
+<div id="blogroll" style="width: 60%">
+  <div class="well" style='text-align: left'>
+    <table class="table table-bordered">
+<% @users.each do |user| %>
+    <tr><td><%= link_to user.name, user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td></tr>
+<% end %>
+    </table>
+</div>
+</div>
+</center>
+<br />
+
+

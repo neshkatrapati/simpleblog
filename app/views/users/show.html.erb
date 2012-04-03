@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<center>
+<div id="blogroll" style="width: 80%" class=''>
+    <h2 class='well'><%= @user.name %></h2><br>
+    <h2>Posts</h2>
+<% if @user.posts.length > 0 %>
+
+<% @posts = @user.posts %>
+<%= render 'posts_show.html.erb' %>
+<% else %>
+        <div class='alert' style='width: 40%'>No Posts Yet!</div>
+<% end %>
+<h2>Comments</h2>
+<% if @user.comments.length > 0 %>
+
+<div class="well" style='text-align: left'>
+
+    <table class='table table-bordered'>
+        <th>Comment</th><th>Post</th>
+    <% @user.comments.reverse.each do |comment| %>
+        <% post = Post.find(comment.post_id) %>
+        <tr><td><%= comment.body %></td><td><%= link_to post.title,post %></td></tr>
+    <% end %>
+    </table>
+  </div>
+
+</div>
+<% else %>
+        <div class='alert' style='width: 40%'>No Comments Yet!</div>
+<% end %>
+</div>
+<%= link_to 'Edit', edit_post_path(@user) %> |
+<%= link_to 'Back', posts_path %>
+</center>

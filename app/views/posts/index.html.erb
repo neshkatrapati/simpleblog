@@ -1,0 +1,39 @@
+<center>
+<h1>@neshKatrapati</h1><br>
+<% if notice != nil%>
+  <center>
+<div class='alert' style='width:40%'><%= notice %></div>
+  </center>
+<% end %>
+<%if cookies[:user] != '' and cookies[:user] != nil %>
+<div class='btn primary'><%= link_to 'New Post', new_post_path %></div>
+<div class='btn primary'><%= link_to 'Sign Out', '/users/signin' %></div><br><br><br>
+<%else %>
+<div class='btn primary'><%= link_to 'Sign In', '/users/signin' %></div>
+<div class='btn primary'><%= link_to 'New User?? Signup!', new_user_path %></div><br><br><br>
+<%end%>
+<div id="blogroll" style="width: 60%">
+<% @posts.each do |post| %>
+  <div class="well" style='text-align: left'>
+    <h2><%= link_to post.title, post %></h2>
+    <%= link_to 'Edit', edit_post_path(post) %>
+    <%= link_to 'Destroy', post, confirm: 'Are you sure?', method: :delete %><br>
+    Posted on <%= post.time %>
+    <% user = User.find(post.user_id) %>
+    By <i><%= link_to user.name,user %></i><br><br><br>
+  
+    <%  if post.content.length > 500 %>
+            <%= raw(post.content[0..500])+"..." %>
+            <%= link_to "See More", post %>
+    <% else %>
+        <%= raw post.content %>
+    <% end %><br><br>
+    Tags: <%= post.tags %>
+  </div>
+    
+<% end %>
+</div>
+</center>
+<br />
+
+
